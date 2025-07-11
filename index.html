@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume of Ke Jiang (Stewart)</title>
+    <!-- STYLE SECTION -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+            --sidebar-bg: #2c3e50;
+            --sidebar-text: #ecf0f1;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --light-gray: #e0e0e0;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 2.5rem;
+            width: 35%;
+            min-width: 320px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+            color: #ffffff;
+            line-height: 1.2;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .contact-info p {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .contact-info svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            fill: var(--sidebar-text);
+        }
+
+        .sidebar-section { margin-top: 2rem; }
+        .sidebar-section h2 {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #4a627a;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .sidebar-section ul { list-style: none; padding: 0; margin: 0; }
+        .sidebar-section ul li {
+            padding: 8px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .sidebar-section ul li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.03);
+        }
+        
+        .main-content {
+            padding: 2.5rem;
+            width: 65%;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .main-content-section h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .main-content-section { 
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn-up 0.8s forwards;
+        }
+        
+        .main-content-section:nth-child(n+2) {
+             animation-delay: 0.2s;
+        }
+
+        @keyframes fadeIn-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .summary p { font-size: 1.05rem; font-style: italic; color: #555; }
+        
+        .job, .education-item {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--light-gray);
+            position: relative;
+            transition: border-color 0.3s;
+        }
+        .job:hover, .education-item:hover { border-left-color: var(--secondary-color); }
+        .job::before, .education-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 4px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            border: 2px solid var(--card-bg);
+            transition: background-color 0.3s;
+        }
+        .job:hover::before, .education-item:hover::before { background-color: var(--secondary-color); }
+
+        .job-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
+        .job h3 { margin: 0; font-size: 1.3rem; color: var(--primary-color); }
+        .job .company { font-weight: bold; color: var(--text-color); }
+        .job .date { font-style: italic; color: #7f8c8d; font-size: 0.9rem; white-space: nowrap; margin-left: 1rem; }
+
+        .job ul, .certifications-list { padding-left: 1.2rem; margin-top: 0.8rem; list-style-type: disc; }
+        
+        .education-item p, .certification-item p { margin: 0; font-size: 1rem; }
+        .education-item h4, .certification-item h4 { margin: 0 0 0.2rem 0; font-size: 1.1rem; }
+        
+        .languages .lang-item { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+        
+        #chatbot-section { margin-top: 2rem; }
+        #chatbot-section iframe {
+            border-radius: 8px;
+        }
+
+        @media (max-width: 992px) {
+            .container { flex-direction: column; margin: 0; border-radius: 0; }
+            .sidebar, .main-content { width: 100%; min-width: unset; }
+            .job-header { flex-direction: column; align-items: flex-start; }
+            .job .date { margin-left: 0; margin-top: 0.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h1>Ke Jiang (Stewart)</h1>
+            <div class="contact-info">
+                <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg>+65 88850024</p>
+                <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>k.j.stewart018@gmail.com</p>
+                <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>Singapore</p>
+            </div>
+            
+            <section class="sidebar-section">
+                <h2>Key Expertise</h2>
+                <ul><li>Blockchain & AI</li><li>FinTech</li><li>Product Strategy</li><li>Entrepreneurship</li><li>Venture Capital</li></ul>
+            </section>
+
+            <section class="sidebar-section">
+                <h2>Languages</h2>
+                <ul>
+                    <li>Chinese: Native</li>
+                    <li>English: Fluent (First Class for TEM 8)</li>
+                </ul>
+            </section>
+
+            <section class="sidebar-section">
+                <h2>Interests & Activities</h2>
+                <ul>
+                    <li><strong>Writing:</strong> Active columnist on Zhihu and verified author on Weibo.</li>
+                    <li><strong>Lifelong Learning:</strong> Member of Hundun University.</li>
+                    <li><strong>Public Speaking:</strong> Former Introducer for Luogic Show.</li>
+                </ul>
+            </section>
+            
+            <section id="chatbot-section" class="sidebar-section">
+                <h2>Ask Me Anything</h2>
+                <iframe 
+                    width="100%" 
+                    height="450px" 
+                    frameborder="0" 
+                    sandbox="allow-scripts allow-same-origin allow-popups"
+                    srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>Resume QA Chatbot</title>
+    <style>
+        :root {
+            --primary-text: #ecf0f1;
+            --secondary-text: #bdc3c7;
+            --bg-color: transparent;
+            --user-msg-bg: #3498db;
+            --bot-msg-bg: #4a627a;
+            --input-bg: #4a627a;
+            --btn-bg: #3498db;
+            --btn-hover-bg: #2980b9;
+        }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            margin: 0; 
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 95%;
+        }
+        h1 { display: none; }
+        .chat-container {
+            flex-grow: 1;
+            overflow-y: auto; 
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-right: 5px;
+        }
+        .message { 
+            padding: 10px 15px; 
+            border-radius: 15px; 
+            max-width: 85%;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        .user-message { 
+            background-color: var(--user-msg-bg); 
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        .bot-message { 
+            background-color: var(--bot-msg-bg);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        .input-area { display: flex; gap: 10px; }
+        #question-input { 
+            flex-grow: 1;
+            padding: 10px 15px;
+            background-color: var(--input-bg);
+            color: var(--primary-text);
+            border: 1px solid var(--bot-msg-bg);
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+        #question-input::placeholder { color: var(--secondary-text); }
+        #submit-btn { 
+            padding: 10px 20px;
+            background-color: var(--btn-bg);
+            color: white; 
+            border: none; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        #submit-btn:hover { background-color: var(--btn-hover-bg); }
+        #submit-btn:disabled { background-color: #a9cce3; cursor: not-allowed; }
+        .thinking-dots span {
+            display: inline-block;
+            width: 8px; height: 8px; border-radius: 50%;
+            background-color: var(--secondary-text);
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .thinking-dots span:nth-child(2) { animation-delay: -0.16s; }
+        .thinking-dots span:nth-child(3) { animation-delay: -0.32s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+    </style>
+</head>
+<body>
+    <div class=&quot;chat-container&quot; id=&quot;chat-container&quot;></div>
+    <div class=&quot;input-area&quot;>
+        <input type=&quot;text&quot; id=&quot;question-input&quot; placeholder=&quot;Ask a question...&quot;>
+        <button id=&quot;submit-btn&quot;>Ask</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resumeKnowledge = `
+# Ke Jiang (Stewart)
++65 88850024 | k.j.stewart018@gmail.com | Singapore
+Blockchain & AI | FinTech | Product Strategy | Entrepreneurship | Venture Capital
+
+### SUMMARY
+A dynamic and forward-thinking leader with extensive experience transitioning from traditional banking and finance to pioneering roles in FinTech, Blockchain, and AI. Since pivoting to technology in 2014, has demonstrated a strong aptitude for conceptual thinking and innovation. Proven track record in founding and leading multiple startups, specializing in Internet Finance product R&D, DeFi solutions, GameFi, and NFT platforms. An active thought leader with a significant online presence as a columnist on Zhihu and a verified author on Weibo.
+
+### WORK EXPERIENCE
+**Blockchain & AI Startup** – Singapore; CEO; July 2023 to Present
+- Relocated to Singapore to establish and lead a new GameFi venture.
+- Architecting a self-evolving, open-world game utilizing blockchain for ownership and AI for dynamic content generation and gameplay.
+
+**FutureCraft** – China; Founder & CEO; Jan. 2019 to May 2023
+- Founded and led a blockchain startup focused on developing DeFi insurance and NFT platforms.
+- Developed and launched a pioneering insurance service for DeFi protocols, mitigating losses from smart contract vulnerabilities and creating arbitrage opportunities.
+- Created and managed an NFT program for artworks, initially based on Ethereum, later successfully pivoting to feature niche cartoonists for Chinese and international markets.
+
+**MCG Capital** – China; VP, Head of Project Dept.; Dec. 2017 to Jan. 2019
+- Led the design and development of diverse blockchain projects, including public chains, DAPP development, and tokenomics.
+- Collaborated with prominent industry figures to enhance a public chain's economic, consensus, and mining models.
+- Managed the end-to-end development of DAPPs on major chains such as EOS.
+- Directed a multi-disciplinary department of researchers, product managers, marketing, and operations staff focused on blockchain initiatives.
+
+**Hot Finance** – China; Co-founder & Chief Product Officer; Apr. 2016 to Dec. 2017
+- Co-founded an internet finance company to address prevalent gaps in the market, focusing on robust financial principles over superficial tech integration.
+- Identified critical technology and risk management deficiencies in the P2P lending space, particularly concerning subprime risk.
+- Pivoted the company's strategic focus towards blockchain as a more transformative and sustainable technology for the financial industry.
+
+**Nuoyi Wealth Management** – China; VP; Apr. 2015 to Apr. 2016
+- Led product research and development for the parent group, establishing an integrated and market-leading product system.
+- Designed and launched new financial products that set new records for the group's capital inflow.
+- Designed and implemented a new credit assignment system from the ground up to resolve a critical functional gap in the platform.
+
+**CreditEase Wealth Management** – China; Senior Account Manager; Oct. 2014 to Apr. 2015
+- Promoted a portfolio of financial products and insurance services, consistently over-fulfilling sales targets.
+- Recruited and built a high-performing sales team.
+
+**China Guangfa Bank** – Shanghai; Manager of the Business Management Team; May 2011 to Oct. 2014
+- Managed the Financial Markets department, with full accountability for all non-traditional banking products including wealth management, foreign exchange, bonds, and precious metals.
+- Directly managed fund transaction business in both RMB and foreign currencies, overseeing all departmental affairs, team progress, and coordination with regulators.
+
+**China Guangfa Bank** – Nanjing; Vice Manager; Jan. 2009 to Apr. 2011
+- Gained a comprehensive understanding of commercial banking through a rotational program covering foreign exchange, credit, and international documentation.
+- Managed the foreign exchange business, including fund trading, position management, and derivatives (swaps, options).
+- Set foreign currency saving and lending rates for corporate and institutional clients.
+
+### EDUCATION
+- Imperial College London Business School | 2006 – 2007; MSc, Management
+- University of Warwick | 2005 – 2006; MA, Sociology, Politics and Philosophy
+- Nanjing University | 2001 – 2005; BA, English (International Business Communications); Minor in International Finance
+
+### CERTIFICATIONS
+- Credential of Intermediate Economist by China Ministry of Human Resources and Social Security
+- Certificate of China Insurance Agent Profession by China Banking and Insurance Regulatory Commission
+
+### ADDITIONAL INFORMATION
+- Languages: Chinese (Native), English (Fluent, First Class for TEM 8)
+- Interests & Activities: Writing (Active columnist on Zhihu and verified author on Weibo), Lifelong Learning (Member of Hundun University), Public Speaking (Former Introducer for Luogic Show).
+`;
+            const chatContainer = document.getElementById('chat-container');
+            const questionInput = document.getElementById('question-input');
+            const submitBtn = document.getElementById('submit-btn');
+
+            function appendMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                if (sender === 'bot' && text === 'thinking') {
+                    messageDiv.innerHTML = `<div class=&quot;thinking-dots&quot;><span></span><span></span><span></span></div>`;
+                } else {
+                    messageDiv.textContent = text;
+                }
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                return messageDiv;
+            }
+
+            async function callGoogleAI(question) {
+                // ==========================================================
+                // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+                // 第1步：在此处粘贴您的Cloudflare Worker URL
+                const YOUR_WORKER_URL = 'https://silent-art-2608.stewart-j-1024.workers.dev';
+                
+                // 第2步：在此处粘贴您的Google AI Studio API Key
+                const GOOGLE_API_KEY = 'AIzaSyD9tK3YBL-A_pBkdxYVMQKP9YjQsuQpIgA';
+                // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+                // ==========================================================
+                
+                if (GOOGLE_API_KEY.includes('在此处') || YOUR_WORKER_URL.includes('YOUR-WORKER-NAME')) {
+                    return 'AI assistant is not configured. Please provide a valid Worker URL and Google AI API key in the code.';
+                }
+
+                const GOOGLE_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GOOGLE_API_KEY}`;
+                const PROXY_API_URL = `${YOUR_WORKER_URL}?url=${encodeURIComponent(GOOGLE_URL)}`;
+
+                const fullPrompt = `You are Ke Jiang (Stewart). Answer the following interview question in the first person ('I', 'my') using only the provided resume context. Be professional and concise. If the answer is not in the context, politely state that you'd be happy to discuss it further in an interview. Do not mention you are an AI.
+
+[RESUME CONTEXT]
+${resumeKnowledge}
+[/RESUME CONTEXT]
+
+Question: ${question}`;
+
+                try {
+                    const response = await fetch(PROXY_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            'contents': [{ 'parts': [{ 'text': fullPrompt }] }],
+                            'generationConfig': { 'temperature': 0.6, 'maxOutputTokens': 200 }
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+                    }
+
+                    const result = await response.json();
+
+                    if (result.error) {
+                        throw new Error(`Google AI API Error: ${result.error.message}`);
+                    }
+                    
+                    const responseText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    return responseText?.trim() || 'I could not generate a response. Please try again.';
+
+                } catch (error) {
+                    console.error(error);
+                    return `Error connecting to the AI service. Details: ${error.message}`;
+                }
+            }
+
+            async function handleQuestion() {
+                const question = questionInput.value.trim();
+                if (!question) return;
+                
+                appendMessage(question, 'user');
+                questionInput.value = '';
+                submitBtn.disabled = true;
+                
+                const thinkingMessage = appendMessage('thinking', 'bot');
+                
+                const answer = await callGoogleAI(question);
+                
+                thinkingMessage.innerHTML = ''; // Clear dots
+                thinkingMessage.textContent = answer;
+                submitBtn.disabled = false;
+                questionInput.focus();
+            }
+
+            submitBtn.addEventListener('click', handleQuestion);
+            questionInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleQuestion();
+            });
+        });
+    </script>
+</body>
+</html>"
+                ></iframe>
+            </section>
+        </aside>
+
+        <main class="main-content">
+            <section class="main-content-section summary">
+                <h2>Summary</h2>
+                <p>A dynamic and forward-thinking leader with extensive experience transitioning from traditional banking and finance to pioneering roles in FinTech, Blockchain, and AI. Since pivoting to technology in 2014, has demonstrated a strong aptitude for conceptual thinking and innovation. Proven track record in founding and leading multiple startups, specializing in Internet Finance product R&D, DeFi solutions, GameFi, and NFT platforms. An active thought leader with a significant online presence as a columnist on Zhihu and a verified author on Weibo.</p>
+            </section>
+            <section class="main-content-section experience">
+                <h2>Work Experience</h2>
+                <div class="job">
+                    <h3>CEO</h3>
+                    <div class="job-header"><span class="company">Blockchain & AI Startup – Singapore</span><span class="date">July 2023 to Present</span></div>
+                    <ul>
+                        <li>Relocated to Singapore to establish and lead a new GameFi venture.</li>
+                        <li>Architecting a self-evolving, open-world game utilizing blockchain for ownership and AI for dynamic content generation and gameplay.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Founder & CEO</h3>
+                    <div class="job-header"><span class="company">FutureCraft – China</span><span class="date">Jan. 2019 to May 2023</span></div>
+                    <ul>
+                        <li>Founded and led a blockchain startup focused on developing DeFi insurance and NFT platforms.</li>
+                        <li>Developed and launched a pioneering insurance service for DeFi protocols, mitigating losses from smart contract vulnerabilities and creating arbitrage opportunities.</li>
+                        <li>Created and managed an NFT program for artworks, initially based on Ethereum, later successfully pivoting to feature niche cartoonists for Chinese and international markets.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>VP, Head of Project Dept.</h3>
+                    <div class="job-header"><span class="company">MCG Capital – China</span><span class="date">Dec. 2017 to Jan. 2019</span></div>
+                    <ul>
+                        <li>Led the design and development of diverse blockchain projects, including public chains, DAPP development, and tokenomics.</li>
+                        <li>Collaborated with prominent industry figures to enhance a public chain's economic, consensus, and mining models.</li>
+                        <li>Managed the end-to-end development of DAPPs on major chains such as EOS.</li>
+                        <li>Directed a multi-disciplinary department of researchers, product managers, marketing, and operations staff focused on blockchain initiatives.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Co-founder & Chief Product Officer</h3>
+                    <div class="job-header"><span class="company">Hot Finance – China</span><span class="date">Apr. 2016 to Dec. 2017</span></div>
+                    <ul>
+                        <li>Co-founded an internet finance company to address prevalent gaps in the market, focusing on robust financial principles over superficial tech integration.</li>
+                        <li>Identified critical technology and risk management deficiencies in the P2P lending space, particularly concerning subprime risk.</li>
+                        <li>Pivoted the company's strategic focus towards blockchain as a more transformative and sustainable technology for the financial industry.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>VP</h3>
+                    <div class="job-header"><span class="company">Nuoyi Wealth Management – China</span><span class="date">Apr. 2015 to Apr. 2016</span></div>
+                    <ul>
+                        <li>Led product research and development for the parent group, establishing an integrated and market-leading product system.</li>
+                        <li>Designed and launched new financial products that set new records for the group's capital inflow.</li>
+                        <li>Designed and implemented a new credit assignment system from the ground up to resolve a critical functional gap in the platform.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Senior Account Manager</h3>
+                    <div class="job-header"><span class="company">CreditEase Wealth Management – China</span><span class="date">Oct. 2014 to Apr. 2015</span></div>
+                    <ul>
+                        <li>Promoted a portfolio of financial products and insurance services, consistently over-fulfilling sales targets.</li>
+                        <li>Recruited and built a high-performing sales team.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Manager of the Business Management Team</h3>
+                    <div class="job-header"><span class="company">China Guangfa Bank – Shanghai</span><span class="date">May 2011 to Oct. 2014</span></div>
+                    <ul>
+                        <li>Managed the Financial Markets department, with full accountability for all non-traditional banking products including wealth management, foreign exchange, bonds, and precious metals.</li>
+                        <li>Directly managed fund transaction business in both RMB and foreign currencies, overseeing all departmental affairs, team progress, and coordination with regulators.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Vice Manager</h3>
+                    <div class="job-header"><span class="company">China Guangfa Bank – Nanjing</span><span class="date">Jan. 2009 to Apr. 2011</span></div>
+                    <ul>
+                        <li>Gained a comprehensive understanding of commercial banking through a rotational program covering foreign exchange, credit, and international documentation.</li>
+                        <li>Managed the foreign exchange business, including fund trading, position management, and derivatives (swaps, options).</li>
+                        <li>Set foreign currency saving and lending rates for corporate and institutional clients.</li>
+                    </ul>
+                </div>
+            </section>
+            <section class="main-content-section education">
+                <h2>Education</h2>
+                <div class="education-item"><h4>MSc, Management</h4><p>Imperial College London Business School | 2006 – 2007</p></div>
+                <div class="education-item"><h4>MA, Sociology, Politics and Philosophy</h4><p>University of Warwick | 2005 – 2006</p></div>
+                <div class="education-item"><h4>BA, English (International Business Communications)</h4><p>Nanjing University | 2001 – 2005<br><i>Minor in International Finance</i></p></div>
+            </section>
+            <section class="main-content-section certifications">
+                <h2>Certifications</h2>
+                <ul class="certifications-list">
+                    <li>Credential of Intermediate Economist (China Ministry of Human Resources and Social Security)</li>
+                    <li>Certificate of China Insurance Agent Profession (China Banking and Insurance Regulatory Commission)</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
